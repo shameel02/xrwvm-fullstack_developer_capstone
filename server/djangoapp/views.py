@@ -1,7 +1,7 @@
 # Uncomment the required imports before adding the code
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
@@ -16,6 +16,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments, post_review
+import os
+from django.conf import settings  # Import settings
 
 
 # Get an instance of a logger
@@ -141,3 +143,8 @@ def get_cars(request):
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels":cars})
+
+# creating manifest.json view
+def serve_manifest(request):
+    file_path = os.path.join(settings.BASE_DIR, 'frontend/build/manifest.json')
+    return FileResponse(open(file_path, 'rb'), content_type='application/json')

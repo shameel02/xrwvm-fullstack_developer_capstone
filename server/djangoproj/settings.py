@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'djangoproj.urls'
@@ -65,6 +66,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR,'frontend/static'),
             os.path.join(BASE_DIR, 'frontend/build'),
             os.path.join(BASE_DIR, 'frontend/build/static'),
+            os.path.join(BASE_DIR, 'frontend/public'),
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
